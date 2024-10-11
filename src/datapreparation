@@ -1,0 +1,79 @@
+import pandas as pd
+from pathlib import Path
+
+
+
+
+def describe_dataframe(df: pd.DataFrame):
+    """
+    This function takes a DataFrame as input and returns the following:
+    - preview of the first few rows of the DataFrame
+    - Shape of the DataFrame
+    - data types of each column
+    - summary of numerical columns
+    - number of missing values in each column
+    """
+    # preview of the first few rows of the DataFrame
+    pd.set_option("display.max_columns", None)
+    df.head()
+
+    # Shape of the DataFrame
+    df.shape
+    
+    # Print the column labels
+    df.columns.tolist()
+
+    # data types of each column
+    df.dtypes
+
+    # the info
+    df.info()
+
+    # summary of numerical columns
+    df.describe()
+    
+    # number of missing values in each column
+    print("\nNumber of missing values in each column:\n", df.isnull().sum())
+
+
+if __name__ == '__main__':
+    csv_file_path = "data/paralympics_events_raw.csv"
+    excel_file_path = "data/paralympics_all_raw.xlsx"
+    try:
+        # Read the CSV file into a DataFrame
+        df_paralympics_events_raw = pd.read_csv(csv_file_path)
+
+    except FileNotFoundError as e:
+        print(f"CSV file not found. Please check the file path. Error: {e}")
+
+    print("Describing 'paralympics_events_raw' DataFrame:\n")
+    describe_dataframe(df_paralympics_events_raw)
+
+    try:
+        # Read the first worksheet (default) of the Excel file into a DataFrame
+        df_paralympics_all_raw = pd.read_excel(excel_file_path)
+
+
+    except FileNotFoundError as e:
+        print(f"Excel file not found. Please check the file path. Error: {e}")
+        
+    print("Describing 'paralympics_all_raw' DataFrame:\n")
+    describe_dataframe(df_paralympics_all_raw)
+
+    try:
+        # Read the second worksheet named "medal_standings" into a DataFrame
+        df_medal_standings = pd.read_excel(excel_file_path, sheet_name=1)
+
+    except FileNotFoundError as e:
+        print(f"Excel file not found. Please check the file path. Error: {e}")
+
+    print("Describing 'medal_standings' DataFrame:\n")
+    describe_dataframe(df_medal_standings)
+    
+
+
+
+
+
+
+
