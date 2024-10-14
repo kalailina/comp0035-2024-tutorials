@@ -3,7 +3,6 @@ from pathlib import Path
 
 
 
-
 def describe_dataframe(df: pd.DataFrame):
     """
     This function takes a DataFrame as input and returns the following:
